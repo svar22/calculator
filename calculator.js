@@ -68,7 +68,16 @@ let operatorPressed = false;
 numbers = document.querySelectorAll(".number");
 numbers.forEach((currentNumber) => {
     currentNumber.addEventListener("click", () => {
-        mainDisplay.textContent += currentNumber.textContent;
+        if(operatorPressed === false){
+            //if operator no pressed yet , append number pressed to number in main display
+            mainDisplay.textContent += currentNumber.textContent;
+        }
+        else {
+            //if operator already pressed, replace number in main display, since previous number will already be in small display as "firstNumber"
+            mainDisplay.textContent = "";
+            mainDisplay.textContent += currentNumber.textContent;
+            operatorPressed = false;
+        }
     });
 });
 
@@ -76,15 +85,27 @@ numbers.forEach((currentNumber) => {
 operators = document.querySelectorAll(".operator");
 operators.forEach((currentOperator) => {
     currentOperator.addEventListener("click", () => {
-        if(operatorPressed === false){
+        if(operatorPressed === false && smallDisplay.textContent === ""){
+            //if operator not pressed yet and smallDisplay is empty, append number in main display along with operator pressed to the small display.
             smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
             operatorPressed = true;
+        } else if (operatorPressed === false){
+            //if operator pressed with two numbers inputted, evaluate the expression
+            let result = operate(15, 3, "multiply");
+            mainDisplay.textContent = result;
+            smallDisplay.textContent = (result + currentOperator.textContent);
+            operatorPressed = true;
         } else {
+            //if operator already pressed, replace (not append) small display content with number in main display along with operator pressed.
             smallDisplay.textContent = "";
             smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
         }
     })
 })
+
+function getOperands (string) {
+    
+}
 // 3. Now, 
 //     1. If number pressed, replace first number in larger display with number that was pressed, now larger display begins collecting second number.
 //     2. If operator pressed, replace current operator with operator that was pressed
