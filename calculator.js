@@ -87,24 +87,32 @@ operators.forEach((currentOperator) => {
     currentOperator.addEventListener("click", () => {
         if(operatorPressed === false && smallDisplay.textContent === ""){
             //if operator not pressed yet and smallDisplay is empty, append number in main display along with operator pressed to the small display.
-            smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
+            firstNumber = mainDisplay.textContent;
+            operator = currentOperator.id;
+            smallDisplay.textContent += (firstNumber + currentOperator.textContent);
             operatorPressed = true;
         } else if (operatorPressed === false){
-            //if operator pressed with two numbers inputted, evaluate the expression
-            let result = operate(15, 3, "multiply");
+            //if operator pressed with two numbers inputted and operator in small display, evaluate the expression using first number and operator from small display and second number from main display.
+            secondNumber = mainDisplay.textContent;
+            let result = operate(Number(firstNumber), Number(secondNumber), operator);
             mainDisplay.textContent = result;
             smallDisplay.textContent = (result + currentOperator.textContent);
             operatorPressed = true;
+            firstNumber = result;
+            operator = currentOperator.id;
         } else {
             //if operator already pressed, replace (not append) small display content with number in main display along with operator pressed.
+            firstNumber = mainDisplay.textContent;
+            operator = currentOperator.id;
             smallDisplay.textContent = "";
-            smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
+            smallDisplay.textContent += (firstNumber + currentOperator.textContent);
         }
     })
 })
 
+
 function getOperands (string) {
-    
+
 }
 // 3. Now, 
 //     1. If number pressed, replace first number in larger display with number that was pressed, now larger display begins collecting second number.
