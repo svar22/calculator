@@ -14,12 +14,6 @@ function divide(firstNumber, secondNumber){
     return firstNumber / secondNumber;
 }
 
-
-let firstNumber;
-let secondNumber;
-let operator;
-let operatorAtFront = false;
-
 function operate (firstNumber, secondNumber, operator){
     if (operator === "add"){
         return add(firstNumber,secondNumber);
@@ -36,38 +30,61 @@ function operate (firstNumber, secondNumber, operator){
 }
 
 
-let mainDisplay = document.querySelector(".main-display");
 
-//add values from buttons pressed to small display
+
+// //add values from buttons pressed to small display
+
+
+// decimal = document.querySelector("#decimal");
+// decimal.addEventListener("click", () => {
+//     mainDisplay.textContent += ".";
+//     operatorAtFront = false;
+// })
+
+// //when operator button is pressed, add operator to the small display
+// operators = document.querySelectorAll(".operator");
+// operators.forEach((currentButton) => {
+//     currentButton.addEventListener("click", () => {
+//         if (operatorAtFront === false){
+//             mainDisplay.textContent += ` ${currentButton.textContent} `;
+//             operatorAtFront = true;
+//         } else {
+//             return;
+//         }
+//     });
+// })
+
+// 1. When number is pressed, number is appended to the larger display.
+
+let mainDisplay = document.querySelector(".main-display");
+let smallDisplay = document.querySelector(".small-display");
+
+let firstNumber;
+let secondNumber;
+let operator;
+
+let operatorPressed = false;
+
 numbers = document.querySelectorAll(".number");
-numbers.forEach((currentButton) => {
-    currentButton.addEventListener("click", () => {
-        mainDisplay.textContent += currentButton.textContent;
-        operatorAtFront = false;
+numbers.forEach((currentNumber) => {
+    currentNumber.addEventListener("click", () => {
+        mainDisplay.textContent += currentNumber.textContent;
     });
 });
 
-decimal = document.querySelector("#decimal");
-decimal.addEventListener("click", () => {
-    mainDisplay.textContent += ".";
-    operatorAtFront = false;
-})
-
-//when operator button is pressed, add operator to the small display
-operators = document.querySelectorAll(".operator");
-operators.forEach((currentButton) => {
-    currentButton.addEventListener("click", () => {
-        if (operatorAtFront === false){
-            mainDisplay.textContent += ` ${currentButton.textContent} `;
-            operatorAtFront = true;
-        } else {
-            return;
-        }
-    });
-})
-
-// 1. When number is pressed, number is appended to the larger display.
 // 2. When operator is pressed, number in larger display becomes first number, first number and operator are displayed in smaller display above. First number remains in large display until another number (or decimal point) is pressed.
+operators = document.querySelectorAll(".operator");
+operators.forEach((currentOperator) => {
+    currentOperator.addEventListener("click", () => {
+        if(operatorPressed === false){
+            smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
+            operatorPressed = true;
+        } else {
+            smallDisplay.textContent = "";
+            smallDisplay.textContent += (mainDisplay.textContent + currentOperator.textContent);
+        }
+    })
+})
 // 3. Now, 
 //     1. If number pressed, replace first number in larger display with number that was pressed, now larger display begins collecting second number.
 //     2. If operator pressed, replace current operator with operator that was pressed

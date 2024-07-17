@@ -80,6 +80,7 @@ button{
     font-size: 40px;
     color: gray;
     overflow: hidden;
+    padding-bottom: 0px;
 }
 
 .main-display{
@@ -89,4 +90,5 @@ button{
     padding: 10px;
     font-size: 60px;
     overflow: hidden;
+    padding-top: 0px;
 }
