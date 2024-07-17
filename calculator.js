@@ -18,6 +18,7 @@ function divide(firstNumber, secondNumber){
 let firstNumber;
 let secondNumber;
 let operator;
+let operatorAtFront = false;
 
 function operate (firstNumber, secondNumber, operator){
     if (operator === "add"){
@@ -35,20 +36,37 @@ function operate (firstNumber, secondNumber, operator){
 }
 
 
-//add values from buttons pressed to display
-let display = document.querySelector(".small-display");
-let displayValue = "";
+let smallDisplay = document.querySelector(".small-display");
 
+//add values from buttons pressed to small display
 numbers = document.querySelectorAll(".number");
 numbers.forEach((currentButton) => {
     currentButton.addEventListener("click", () => {
-        display.textContent += currentButton.textContent;
-        displayValue += currentButton.textContent;
+        smallDisplay.textContent += currentButton.textContent;
+        operatorAtFront = false;
     });
 });
 
-//when operator button is pressed, add operator to the main display
+decimal = document.querySelector("#decimal");
+decimal.addEventListener("click", () => {
+    smallDisplay.textContent += ".";
+    operatorAtFront = false;
+})
 
+//when operator button is pressed, add operator to the small display
+operators = document.querySelectorAll(".operator");
+operators.forEach((currentButton) => {
+    currentButton.addEventListener("click", () => {
+        if (operatorAtFront === false){
+            smallDisplay.textContent += ` ${currentButton.textContent} `;
+            operatorAtFront = true;
+        } else {
+            return;
+        }
+    });
+})
 
 //when equals is pressed, equation within display is operated on.
+// equals = document.querySelector("#equals");
+// equals.addEventListener("click", (evaluate());
 
