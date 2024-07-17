@@ -1,0 +1,92 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+
+.calc-container {
+    background-color: thistle;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-basis: 0px;
+    height:  600px;
+    border: solid 2px black;
+    border-radius: 16px;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+    gap: 16px;
+}
+
+.row {
+    display: flex;
+    gap: 16px;
+    width: 400px;
+    flex: 1;
+    justify-content: center;
+}
+
+
+.big-button {
+    flex: 1;
+    color:aliceblue;
+}
+
+#clear{
+    background-color: lightcoral;
+}
+
+#delete {
+    background-color: mediumslateblue;
+}
+
+.small-button{
+    background-color: aliceblue;
+    flex: 1;
+}
+
+button:hover{
+    filter: brightness(85%);
+}
+
+button{
+    font-family: Arial, Helvetica, sans-serif;
+    border: solid 2px black;
+    border-radius: 8px;
+    font-size: 24px;
+}
+
+.display {
+    font-family: Arial, Helvetica, sans-serif;
+    min-height: 150px;
+    border: solid 2px black;
+    border-radius: 8px;
+    flex: 1 0 400px;
+    min-width: 0;
+    background-color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.small-display{
+    display: flex;
+    justify-content: right;
+    max-width: 380px;
+    padding: 16px;
+    font-size: 40px;
+    color: gray;
+    overflow: hidden;
+}
+
+.main-display{
+    display: flex;
+    justify-content: right;
+    max-width: 380px;
+    padding: 10px;
+    font-size: 60px;
+    overflow: hidden;
+}

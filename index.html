@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="calc-container">
+        <div class="row" id="display-container">
+            <div class="display">
+                <div class="small-display"></div>
+                <div class="main-display"></div>
+            </div>
+        </div> 
+        <div class="row" id="clear-and-delete">
+            <button class="big-button" id="clear">CLEAR</button>
+            <button class="big-button" id="delete">DELETE</button>
+        </div>
+        <div class="row" id="row-one">
+            <button class="small-button number" id="seven">7</button>
+            <button class="small-button number" id="eight">8</button>
+            <button class="small-button number" id="nine">9</button>
+            <button class="small-button" id="divide">&divide</button>
+        </div>
+        <div class="row" id="row-two">
+            <button class="small-button number" id="four">4</button>
+            <button class="small-button number" id="five">5</button>
+            <button class="small-button number" id="six">6</button>
+            <button class="small-button" id="multiply">&times</button>
+        </div>
+        <div class="row" id="row-three">
+            <button class="small-button number" id="one">1</button>
+            <button class="small-button number" id="two">2</button>
+            <button class="small-button number" id="three">3</button>
+            <button class="small-button operator" id="subtract">-</button>
+        </div>
+        <div class="row" id="row-four">
+            <button class="small-button number" id="decimal">.</button>
+            <button class="small-button number" id="zero">0</button>
+            <button class="small-button" id="equals">=</button>
+            <button class="small-button operator" id="add">+</button>
+        </div>
+    </div>
+    <script src="calculator.js"></script>
+</body>
+</html>
