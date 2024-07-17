@@ -15,6 +15,10 @@ function divide(firstNumber, secondNumber){
 }
 
 function operate (firstNumber, secondNumber, operator){
+    if (operator === "divide" && secondNumber === 0){
+        return ("bro...");
+    }
+
     if (operator === "add"){
         return add(firstNumber,secondNumber);
     }
@@ -58,17 +62,19 @@ function operate (firstNumber, secondNumber, operator){
 
 let mainDisplay = document.querySelector(".main-display");
 let smallDisplay = document.querySelector(".small-display");
+mainDisplay.textContent = "0";
 
 let firstNumber;
 let secondNumber;
 let operator;
 
 let operatorPressed = false;
+let equalsPressed = false;
 
 numbers = document.querySelectorAll(".number");
 numbers.forEach((currentNumber) => {
     currentNumber.addEventListener("click", () => {
-        if(operatorPressed === false){
+        if(operatorPressed === false && mainDisplay.textContent !== "0"){
             //if operator no pressed yet , append number pressed to number in main display
             mainDisplay.textContent += currentNumber.textContent;
         }
@@ -91,7 +97,7 @@ operators.forEach((currentOperator) => {
             operator = currentOperator.id;
             smallDisplay.textContent += (firstNumber + currentOperator.textContent);
             operatorPressed = true;
-        } else if (operatorPressed === false){
+        } else if (operatorPressed === false && equalsPressed === false){
             //if operator pressed with two numbers inputted and operator in small display, evaluate the expression using first number and operator from small display and second number from main display.
             secondNumber = mainDisplay.textContent;
             let result = operate(Number(firstNumber), Number(secondNumber), operator);
@@ -104,16 +110,48 @@ operators.forEach((currentOperator) => {
             //if operator already pressed, replace (not append) small display content with number in main display along with operator pressed.
             firstNumber = mainDisplay.textContent;
             operator = currentOperator.id;
-            smallDisplay.textContent = "";
-            smallDisplay.textContent += (firstNumber + currentOperator.textContent);
+            smallDisplay.textContent = (firstNumber + currentOperator.textContent);
+            mainDisplay.textContent = "";
+            equalsPressed = false;
         }
     })
 })
 
 
-function getOperands (string) {
 
-}
+equals = document.querySelector("#equals");
+equals.addEventListener("click", () => {
+    if(operatorPressed === false && smallDisplay.textContent !== ""){
+        //small display has operator and number. main display has number. if there is no operator currently selected and nothing is in the smaller display, smaller display should show the equation ending in equals and main display should show the result.
+        secondNumber = mainDisplay.textContent;
+            let currentOperator = document.querySelector(`#${operator}`);
+            let result = operate(Number(firstNumber), Number(secondNumber), operator);
+            smallDisplay.textContent = (`${firstNumber}${currentOperator.textContent}${secondNumber} =`);
+            mainDisplay.textContent = result;
+            firstNumber = result; 
+            equalsPressed = true;
+    } else {
+        //any other situation in which equals is pressed, bothing should happen.
+        return;
+    }
+})
+
+let clearButton = document.querySelector("#clear");
+clearButton.addEventListener("click", ()=> {
+    mainDisplay.textContent = "0";
+    smallDisplay.textContent = "";
+    firstNumber = 0;
+    secondNumber = 0;
+    operator = "";
+});
+
+let deleteButton = document.querySelector("#delete");
+deleteButton.addEventListener("click", () => {
+    let mainLength = mainDisplay.textContent.length;
+    mainDisplay.textContent = mainDisplay.textContent.slice(0, mainLength - 1);
+});
+
+
 // 3. Now, 
 //     1. If number pressed, replace first number in larger display with number that was pressed, now larger display begins collecting second number.
 //     2. If operator pressed, replace current operator with operator that was pressed
