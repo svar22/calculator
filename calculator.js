@@ -1,17 +1,21 @@
 function add(firstNumber, secondNumber){
-    return firstNumber + secondNumber;
+    const result = firstNumber + secondNumber;
+    return parseFloat(result.toFixed(6));
 }
 
 function subtract(firstNumber, secondNumber){
-    return firstNumber - secondNumber;
+    const result = firstNumber - secondNumber;
+    return parseFloat(result.toFixed(6));
 }
 
 function multiply(firstNumber, secondNumber){
-    return firstNumber * secondNumber;
+    const result = firstNumber * secondNumber;
+    return parseFloat(result.toFixed(6));
 }
 
 function divide(firstNumber, secondNumber){
-    return firstNumber / secondNumber;
+    const result = firstNumber / secondNumber;
+    return parseFloat(result.toFixed(6));
 }
 
 function operate (firstNumber, secondNumber, operator){
@@ -36,28 +40,6 @@ function operate (firstNumber, secondNumber, operator){
 
 
 
-// //add values from buttons pressed to small display
-
-
-// decimal = document.querySelector("#decimal");
-// decimal.addEventListener("click", () => {
-//     mainDisplay.textContent += ".";
-//     operatorAtFront = false;
-// })
-
-// //when operator button is pressed, add operator to the small display
-// operators = document.querySelectorAll(".operator");
-// operators.forEach((currentButton) => {
-//     currentButton.addEventListener("click", () => {
-//         if (operatorAtFront === false){
-//             mainDisplay.textContent += ` ${currentButton.textContent} `;
-//             operatorAtFront = true;
-//         } else {
-//             return;
-//         }
-//     });
-// })
-
 // 1. When number is pressed, number is appended to the larger display.
 
 let mainDisplay = document.querySelector(".main-display");
@@ -74,18 +56,20 @@ let equalsPressed = false;
 numbers = document.querySelectorAll(".number");
 numbers.forEach((currentNumber) => {
     currentNumber.addEventListener("click", () => {
-        if(operatorPressed === false && mainDisplay.textContent !== "0"){
+        if(operatorPressed === false && equalsPressed === false && mainDisplay.textContent !== "0"){
             //if operator no pressed yet , append number pressed to number in main display
             mainDisplay.textContent += currentNumber.textContent;
         }
         else {
             //if operator already pressed, replace number in main display, since previous number will already be in small display as "firstNumber"
-            mainDisplay.textContent = "";
-            mainDisplay.textContent += currentNumber.textContent;
+            mainDisplay.textContent = currentNumber.textContent;
             operatorPressed = false;
+            equalsPressed = false;
         }
     });
 });
+
+
 
 // 2. When operator is pressed, number in larger display becomes first number, first number and operator are displayed in smaller display above. First number remains in large display until another number (or decimal point) is pressed.
 operators = document.querySelectorAll(".operator");
@@ -97,7 +81,7 @@ operators.forEach((currentOperator) => {
             operator = currentOperator.id;
             smallDisplay.textContent += (firstNumber + currentOperator.textContent);
             operatorPressed = true;
-        } else if (operatorPressed === false && equalsPressed === false){
+        } else if (operatorPressed === false && equalsPressed === false ){
             //if operator pressed with two numbers inputted and operator in small display, evaluate the expression using first number and operator from small display and second number from main display.
             secondNumber = mainDisplay.textContent;
             let result = operate(Number(firstNumber), Number(secondNumber), operator);
@@ -111,7 +95,7 @@ operators.forEach((currentOperator) => {
             firstNumber = mainDisplay.textContent;
             operator = currentOperator.id;
             smallDisplay.textContent = (firstNumber + currentOperator.textContent);
-            mainDisplay.textContent = "";
+            operatorPressed = true;
             equalsPressed = false;
         }
     })
@@ -131,7 +115,7 @@ equals.addEventListener("click", () => {
             firstNumber = result; 
             equalsPressed = true;
     } else {
-        //any other situation in which equals is pressed, bothing should happen.
+        //any other situation in which equals is pressed, nothing should happen.
         return;
     }
 })
@@ -151,6 +135,15 @@ deleteButton.addEventListener("click", () => {
     mainDisplay.textContent = mainDisplay.textContent.slice(0, mainLength - 1);
 });
 
+decimal = document.querySelector("#decimal");
+decimal.addEventListener("click", () => {
+    let length = mainDisplay.textContent.length;
+    if (mainDisplay.textContent.includes(".")){
+        return;
+    } else {
+        mainDisplay.textContent += ".";
+    }
+});
 
 // 3. Now, 
 //     1. If number pressed, replace first number in larger display with number that was pressed, now larger display begins collecting second number.
